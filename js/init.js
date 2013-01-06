@@ -6,7 +6,7 @@ var IMAGE = 'image';
 
 var CREATING_SHAPE = false;
 
-
+var screenWidth, screenHeight;
 var mapWidth = 2000; // still have to be setup in canvas tag width
 var mapHeight = 1000;// still have to be setup in canvas tag height
 var MODE = SHAPE;
@@ -16,8 +16,14 @@ var pointArray = new Array;
 var shapeArray = new Array;
 
 $(document).ready(function(){
+	screenWidth = $('#screen').width();
+	screenHeight = $('#screen').height();
+
 	$('#save').click(function(){
 		save();
+	});
+	$('#load').click(function(){
+		load();
 	});
 	$('.option').click(function(){
 		if(!$(this).hasClass('active')){
@@ -42,57 +48,8 @@ $(document).ready(function(){
 	});
 	// ---------------------------------------------------------- DEBUG ---------------------------------------------------- //
 });
-function changeMode(newMode){
-	MODE = newMode;
-	console.log('actual mode: ' + MODE);
-	pointArray = new Array();
-}
-
-function init(){
-	stage = new createjs.Stage(document.getElementById('map'));
-	stage.onMouseDown = function(e){
-		if(MODE == SHAPE){
-			var point = {x: e.stageX, y: e.stageY};
-			addPoint(point);
-		}
-	};
-	stage.onMouseMove = function(e){
-		if(CREATING_SHAPE){
-			reDrawShapes();
-			drawCurrentShape();
-			
-			ctx.beginPath();
-			ctx.moveTo(pointArray[pointArray.length - 1].x, pointArray[pointArray.length - 1].y);
-			ctx.lineTo(e.stageX, e.stageY);
-			ctx.strokeStyle = '#000';
-			ctx.stroke();
-			ctx.closePath();
-		}
-	};
-	
-	ctx = $('#map')[0].getContext('2d');
-	
-}
-
-function clearStage(){
-	ctx.clearRect(0, 0, mapWidth, mapHeight);
-}
-
-function save(){
-	var json = JSON.stringify(shapeArray);
-	console.log('json: ' + json);
-}
 
 document.oncontextmenu = function(){
-	// ---------------------------------------------------------- DEBUG ---------------------------------------------------- //
-	var printArray = 'pointArray = [';
-	for(var i = 0; i < pointArray.length; i++){
-		printArray += 'x: ' + pointArray[i].x + ' y: ' + pointArray[i].y;
-		if(pointArray.length != i + 1) printArray += ', ';
-	}
-	printArray += ']';
-	console.log(printArray);
-	// ---------------------------------------------------------- DEBUG ---------------------------------------------------- //
 	return false;
 };
 
@@ -127,6 +84,59 @@ document.onkeydown = function(e){
 		drawCurrentShape();
 	}
 };
+
+function changeMode(newMode){
+	MODE = newMode;
+	CREATING_SHAPE = false;
+	
+	console.log('actual mode: ' + MODE);
+	pointArray = new Array();
+	reDrawShapes();
+}
+
+function init(){
+	stage = new createjs.Stage(document.getElementById('map'));
+	stage.onMouseDown = function(e){
+		if(MODE == SHAPE){
+			var point = {x: e.stageX, y: e.stageY};
+			addPoint(point);
+		}
+	};
+	stage.onMouseMove = function(e){
+		if(CREATING_SHAPE){
+			reDrawShapes();
+			drawCurrentShape(); // draw pointArray
+			
+			ctx.beginPath();
+			ctx.moveTo(pointArray[pointArray.length - 1].x, pointArray[pointArray.length - 1].y);
+			ctx.lineTo(e.stageX, e.stageY);
+			ctx.strokeStyle = '#000';
+			ctx.stroke();
+			ctx.closePath();
+		}
+		setScreenPosition(e.stageX, e.stageY);
+	};
+	
+	ctx = $('#map')[0].getContext('2d');
+	
+}
+
+function clearStage(){
+	ctx.clearRect(0, 0, mapWidth, mapHeight);
+}
+
+function save(){
+	var json = JSON.stringify(shapeArray);
+	console.log('json: ' + json);
+
+	localStorage.setItem('map', json);
+}
+function load(){
+	var load;
+	load = localStorage.getItem('map');
+	alert(load);
+}
+
 function createShape(){
 	CREATING_SHAPE = false;
 	
