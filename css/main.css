@@ -1,0 +1,67 @@
+@font-face {
+    font-family: 'text';
+    src: url('../fonts/opensans-regular-webfont.eot');
+    src: url('../fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-regular-webfont.woff') format('woff'),
+         url('../fonts/opensans-regular-webfont.ttf') format('truetype'),
+         url('../fonts/opensans-regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+.unselectable{
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+
+body{
+background: #bbb;
+overflow: hidden;
+font-family: text;
+}
+#container{
+width: 1002px;
+margin: auto;
+margin-top: 20px;
+}
+#menu{
+color: #fff;
+font-size: 20px;
+width: 1000px;
+background: #333;
+overflow: auto;
+}
+#menu .option{
+height: 30px;
+padding: 5px 20px;
+float: left;
+cursor: pointer;
+border-right: 1px solid #555;
+}
+#menu .option:hover{
+background: #f00;
+}
+#menu .option.active{
+height: 27px;
+border-bottom: 3px solid #f00;
+}
+#menu .option.active:hover{
+background: #333;
+cursor: default;
+}
+#screen{
+width: 1000px;
+height: 500px;
+border-top: 2px solid #f00;
+overflow: auto;
+position: relative;
+background: #fff;
+}
+#map{
+background: url(../images/square.png);
+position: absolute;
+top: 0;
+left: 0;
+}

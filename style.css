@@ -1,0 +1,258 @@
+/*
+Theme Name: Pradaxa Blog
+Description: Pradaxa Blog
+Author: Nitro Digital
+
+/* =Reset
+-------------------------------------------------------------- */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+a{
+text-decoration: none;
+}
+ol,
+ul {
+	list-style: none;
+}
+blockquote,
+q {
+	quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+caption,
+th,
+td {
+	font-weight: normal;
+	text-align: left;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	clear: both;
+}
+html {
+	overflow-y: scroll;
+	font-size: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+a:focus {
+	outline: none;
+}
+img {
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+/* Clearing floats */
+.clear:after,
+.wrapper:after,
+.format-status .entry-header:after {
+	clear: both;
+}
+.clear:before,
+.clear:after,
+.wrapper:before,
+.wrapper:after,
+.format-status .entry-header:before,
+.format-status .entry-header:after {
+	display: table;
+	content: "";
+}
+
+/* style
+-------------------------------------------------------------- */
+@font-face {
+    font-family: 'title';
+    src: url('fonts/league_gothic-webfont.eot');
+    src: url('fonts/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/league_gothic-webfont.woff') format('woff'),
+         url('fonts/league_gothic-webfont.ttf') format('truetype'),
+         url('fonts/league_gothic-webfont.svg#league_gothicregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'text';
+    src: url('fonts/opensans-regular-webfont.eot');
+    src: url('fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/opensans-regular-webfont.woff') format('woff'),
+         url('fonts/opensans-regular-webfont.ttf') format('truetype'),
+         url('fonts/opensans-regular-webfont.svg#open_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+background: #f2f2f2;
+font-size: 16px;
+color: #999;
+font-family: text;
+line-height: 25px;
+}
+#container{
+width: 1180px;
+margin: auto;
+border-top: 3px solid #ab2d17;
+}
+#left-side{
+width: 220px;
+float: left;
+}
+#logo{
+width: 140px;
+height: 149px;
+margin-left: 35px;
+margin-top: 15px;
+background: url(images/logo.jpg) no-repeat;
+}
+#left-side .text{
+border-top: 1px solid #ccc;
+border-bottom: 1px solid #ccc;
+padding: 20px;
+color: #b2b2b2;
+font-size: 0.8em;
+margin-top: 20px;
+text-align: center;
+text-transform: lowercase;
+}
+#left-side .tags-box{
+margin-top: 20px;
+text-align: center;
+}
+.tags-box{
+font-size: 0.8em;
+}
+.tags-box a{
+background: #9a9a9a;
+padding: 3px 5px;
+border-radius: 4px;
+font-size: 0.8em;
+margin: 0px 3px;
+line-height: 35px;
+cursor: pointer;
+color: #fff;
+font-size: 1em !important;
+}
+
+.content-list-box .tags-box{
+margin-top: 20px;
+text-align: right;
+}
+
+/* tag colors */
+.tags-box a.tag-link-5{
+background: #a94c3b;
+}
+.tags-box a.tag-link-6{
+background: #ab2d16;
+}
+.tags-box a.tag-link-7{
+background: #ac4817;
+}
+.tags-box a.tag-link-8{
+background: #646464;
+}
+
+
+
+#right-side{
+width: 900px;
+float: left;
+padding: 0 30px;
+padding-top: 30px;
+}
+#right-side .header-text{
+color: #ab2d17;
+font-family: title;
+font-size: 1.8em;
+width: 650px;
+float: left;
+line-height: 30px;
+}
+#right-side .search-box{
+width: 250px;
+float: left;
+}
+#right-side .search-box label, #searchsubmit{
+display: none;
+}
+#right-side .search-box #searchform #s{
+width: 150px;
+margin-left: 50px;
+}
+#right-side .content-list-box, #right-side .content-box{
+width: 840px;
+padding: 20px 30px;
+border: 1px solid #ccc;
+border-radius: 4px;
+background: #fff;
+margin-top: 80px;
+}
+#right-side .post-box{
+margin: 30px 0;
+padding-bottom: 0px;
+border-bottom: 1px solid #ccc;
+}
+#right-side .post-box .title{
+font-family: title;
+font-size: 2.5em;
+margin-bottom: 20px;
+}
+#right-side .post-box .title a{
+color: #999;
+}
+#right-side .post-box .title a:hover{
+color: #ab2d17;
+}
+.youtuber{
+float: left;
+margin-right: 30px;
+}
+#right-side .post-box .read_more{
+color: #ab2d17;
+margin-top: 10px;
+display: block;
+}
+#right-side .footer{
+text-align: right;
+margin-top: 10px;
+font-size: 0.8em;
+padding-bottom: 100px;
+}
+#right-side .content-box .post-box{
+border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
