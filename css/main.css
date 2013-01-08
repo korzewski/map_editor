@@ -62,7 +62,7 @@ border-right: 1px solid #555;
 width: inherit;
 height: 500px;
 border-top: 2px solid #f00;
-overflow: auto;
+overflow: hidden;
 position: relative;
 background: #fff;
 }
