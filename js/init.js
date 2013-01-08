@@ -28,6 +28,9 @@ $(document).ready(function(){
 			addPoint(point);
 		}
 	};
+	stage.onMouseUp = function(){
+		stopMoveShape();
+	};
 	stage.onMouseMove = function(e){
 		if(CREATING_SHAPE){
 			reDrawShapes();
@@ -40,6 +43,8 @@ $(document).ready(function(){
 			ctx.stroke();
 			ctx.closePath();
 		}
+		
+		moveShape(e.stageX, e.stageY);
 		setScreenPosition(e.stageX, e.stageY);
 	};
 	
@@ -111,6 +116,9 @@ function createShape(){
 	if(pointArray.length > 2){
 		pointArray.push({x: pointArray[0].x, y: pointArray[0].y});
 		shapeArray.push(pointArray);
+		addShapeToStage();
+		shapeArray[shapeArray.length - 1].offsetX = 0;
+		shapeArray[shapeArray.length - 1].offsetY = 0;
 		
 		pointArray = new Array; // clear pointArray[]
 		
@@ -120,7 +128,7 @@ function createShape(){
 	}
 	
 	reDrawShapes();
-	addShapeToStage();
+	
 }
 
 function addPoint(newPoint){
