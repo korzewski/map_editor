@@ -24,12 +24,12 @@ function addShapeToStage(){
 	var currentShape = shapeOnStage.length - 1;
 	
 	for(var i = 0; i < shapeArray[currentShape].length; i++){
-		if(i == 0) shapeOnStage[currentShape].graphics.beginFill('#ffa200').beginStroke('#00f').moveTo(shapeArray[currentShape][0].x, shapeArray[currentShape][0].y);
+		if(i == 0) shapeOnStage[currentShape].graphics.beginFill('rgba(0, 0, 0, 0.1)').beginStroke('#000').moveTo(shapeArray[currentShape][0].x, shapeArray[currentShape][0].y);
 		else{
 			shapeOnStage[currentShape].graphics.lineTo(shapeArray[currentShape][i].x, shapeArray[currentShape][i].y);
 		}
 	}
-	
+	shapeOnStage[currentShape].alpha = 0.3;
 	shapeOnStage[currentShape].id = currentShape;
 		
 	// action
@@ -43,15 +43,24 @@ var startX, startY, offsetX, offsetY;
 var SHAPE_IS_MOVE = false;
 var actualShapeID;
 
+function setActiveShape(){	
+	shapeOnStage[actualShapeID].alpha = 1;
+	reDrawShapes();
+}
+function unsetActiveShape(){	
+	shapeOnStage[actualShapeID].alpha = 0.3;
+	reDrawShapes();
+}
+
 function startMoveShape(e){
 	if(MODE == SELECT){
 		SHAPE_IS_MOVE = true;
 		
-		actualShapeID = e.target.id;
-		console.log('actualShapeID: '+ actualShapeID);
-		
+		actualShapeID = e.target.id;		
 		startX = e.stageX;
 		startY = e.stageY;
+		
+		setActiveShape();
 	}
 }
 
@@ -59,12 +68,8 @@ function moveShape(stageX, stageY){
 	if(SHAPE_IS_MOVE){		
 		offsetX = stageX - startX;
 		offsetY = stageY - startY;
-				
 		shapeOnStage[actualShapeID].x = shapeArray[actualShapeID].offsetX + offsetX;
 		shapeOnStage[actualShapeID].y = shapeArray[actualShapeID].offsetY + offsetY;
-		
-		console.log('shapeOnStage[actualShapeID].x: ' + shapeOnStage[actualShapeID].x + ' | shapeArray[actualShapeID].offsetX: ' + shapeArray[actualShapeID].offsetX);
-		console.log('shapeOnStage[actualShapeID].y: ' + shapeOnStage[actualShapeID].y + ' | shapeArray[actualShapeID].offsetY: ' + shapeArray[actualShapeID].offsetY);
 		
 		reDrawShapes();
 	}
@@ -76,7 +81,8 @@ function stopMoveShape(){
 		
 		shapeArray[actualShapeID].offsetX += offsetX;
 		shapeArray[actualShapeID].offsetY += offsetY;
-		console.log('shapeArray[actualShapeID].offsetX: ' + shapeArray[actualShapeID].offsetX + 'shapeArray[actualShapeID].offsetY: ' + shapeArray[actualShapeID].offsetY);
+		
+		unsetActiveShape();
 	}
 }
 

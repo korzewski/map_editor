@@ -46,6 +46,8 @@ $(document).ready(function(){
 	
 	reDrawShapes();
 	
+	
+	
 	$('#screen').mouseout(function(){
 		$(this).stop();
 	});
@@ -60,6 +62,8 @@ $(document).ready(function(){
 			console.log('mode: rectangle');
 		} else if(MODE == IMAGE){
 			console.log('mode: image');
+		} else if(MODE == SELECT){
+			//console.log('mode: select');
 		} else{
 			console.log('mode: unknow');
 		}
@@ -81,7 +85,25 @@ $(document).ready(function(){
 		}
 	});
 	// menu --------------------------------------------------------
+	
+	//createjs.Ticker.addListener(window);
+	//createjs.Ticker.setFPS(30);
 });
+
+function setMenuOption(newMode){
+	if(MODE != newMode){
+		$('#menu .option').removeClass('active');
+		$('#' + newMode).addClass('active');
+		changeMode(newMode);
+	}
+}
+
+/*
+function tick(){
+	console.log('tick, ');
+	stage.update();
+}
+*/
 
 function changeMode(newMode){
 	MODE = newMode;

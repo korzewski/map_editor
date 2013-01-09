@@ -5,7 +5,7 @@ document.oncontextmenu = function(){
 
 document.onkeydown = function(e){
 	//console.log(e.keyCode);
-	if(e.keyCode == 13){ 
+	if(e.keyCode == 13){
 		// enter
 		if(MODE == SHAPE){
 			if(pointArray.lenght != 0){
@@ -35,5 +35,13 @@ document.onkeydown = function(e){
 		}
 		reDrawShapes();
 		drawCurrentShape();
+	}
+	if(e.keyCode == 86){
+		// 'v'
+		setMenuOption(SELECT);
+	}
+	if(e.keyCode == 83){
+		// 's'
+		setMenuOption(SHAPE);
 	}
 };
