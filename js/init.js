@@ -51,7 +51,6 @@ $(document).ready(function(){
 	reDrawShapes();
 	
 	
-	
 	$('#screen').mouseout(function(){
 		$(this).stop();
 	});
@@ -119,14 +118,15 @@ function changeMode(newMode){
 }
 
 function save(){
-	// map data
-	shapeArray[0][0].mapWidth = mapWidth;
-	shapeArray[0][0].mapHeight = mapHeight;
-	
-	var json = JSON.stringify(shapeArray);
-	localStorage.setItem('map', json);
-	
-	console.log('json: ' + json);
+	if(shapeArray.length > 0){
+		shapeArray[0][0].mapWidth = mapWidth;
+		shapeArray[0][0].mapHeight = mapHeight;
+		
+		var json = JSON.stringify(shapeArray);
+		localStorage.setItem('map', json);
+		
+		console.log('json: ' + json);
+	}
 }
 function load(){
 	var load = localStorage.getItem('map');
@@ -163,8 +163,8 @@ function createShape(){
 function addPoint(newPoint){
 	CREATING_SHAPE = true;
 	
-	var newX = newPoint.x;
-	var newY = newPoint.y;
+	var newX = parseInt(newPoint.x);
+	var newY = parseInt(newPoint.y);
 	pointArray.push({x: newX, y: newY});
 	
 	console.log(pointArray.length);
