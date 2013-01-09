@@ -1,15 +1,19 @@
+
 // MODE TYPE
+var SELECT = 'select';
 var SHAPE = 'shape';
 var CIRCLE = 'circle';
 var RECTANGLE = 'rectangle';
 var IMAGE = 'image';
+
+var MODE = SHAPE;
+
 
 var CREATING_SHAPE = false;
 
 var screenWidth, screenHeight;
 var mapWidth = 2000; // still have to be setup in canvas tag width
 var mapHeight = 1000;// still have to be setup in canvas tag height
-var MODE = SHAPE;
 
 var stage;
 var pointArray = new Array;
@@ -33,15 +37,7 @@ $(document).ready(function(){
 	};
 	stage.onMouseMove = function(e){
 		if(CREATING_SHAPE){
-			reDrawShapes();
-			drawCurrentShape(); // draw pointArray
-			
-			ctx.beginPath();
-			ctx.moveTo(pointArray[pointArray.length - 1].x, pointArray[pointArray.length - 1].y);
-			ctx.lineTo(e.stageX, e.stageY);
-			ctx.strokeStyle = '#000';
-			ctx.stroke();
-			ctx.closePath();
+			drawCurrentShape(e.stageX, e.stageY); // draw pointArray
 		}
 		
 		moveShape(e.stageX, e.stageY);
@@ -49,8 +45,6 @@ $(document).ready(function(){
 	};
 	
 	reDrawShapes();
-	
-
 	
 	$('#screen').mouseout(function(){
 		$(this).stop();
@@ -116,9 +110,11 @@ function createShape(){
 	if(pointArray.length > 2){
 		pointArray.push({x: pointArray[0].x, y: pointArray[0].y});
 		shapeArray.push(pointArray);
-		addShapeToStage();
+		
 		shapeArray[shapeArray.length - 1].offsetX = 0;
 		shapeArray[shapeArray.length - 1].offsetY = 0;
+		
+		addShapeToStage(); // beta ----------------------------------------------------------------------
 		
 		pointArray = new Array; // clear pointArray[]
 		
@@ -128,7 +124,6 @@ function createShape(){
 	}
 	
 	reDrawShapes();
-	
 }
 
 function addPoint(newPoint){
