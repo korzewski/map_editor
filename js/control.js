@@ -36,12 +36,12 @@ document.onkeydown = function(e){
 		reDrawShapes();
 		drawCurrentShape();
 	}
-	if(e.keyCode == 86){
-		// 'v'
-		setMenuOption(SELECT);
-	}
 	if(e.keyCode == 83){
 		// 's'
+		setMenuOption(SELECT);
+	}
+	if(e.keyCode == 68){
+		// 'd'
 		setMenuOption(SHAPE);
 	}
 };

@@ -11,9 +11,11 @@ var MODE = SHAPE;
 
 var CREATING_SHAPE = false;
 
+// ---------------------------------------------------------- MAP SETTINGS ---------------------------------------------------- //
 var screenWidth, screenHeight;
-var mapWidth = 2000; // still have to be setup in canvas tag width
-var mapHeight = 1000;// still have to be setup in canvas tag height
+var mapWidth = 2000;
+var mapHeight = 1000;
+// ---------------------------------------------------------- MAP SETTINGS ---------------------------------------------------- //
 
 var stage;
 var pointArray = new Array;
@@ -22,6 +24,8 @@ var shapeArray = new Array;
 $(document).ready(function(){
 	screenWidth = $('#screen').width();
 	screenHeight = $('#screen').height();
+	
+	$('#screen').append('<canvas id="map" width="'+ mapWidth +'" height="'+ mapHeight +'"></canvas>');
 	
 	ctx = $('#map')[0].getContext('2d');
 	stage = new createjs.Stage(document.getElementById('map'));
@@ -115,14 +119,18 @@ function changeMode(newMode){
 }
 
 function save(){
+	// map data
+	shapeArray[0][0].mapWidth = mapWidth;
+	shapeArray[0][0].mapHeight = mapHeight;
+	
 	var json = JSON.stringify(shapeArray);
-	console.log('json: ' + json);
-
 	localStorage.setItem('map', json);
+	
+	console.log('json: ' + json);
 }
 function load(){
-	var load;
-	load = localStorage.getItem('map');
+	var load = localStorage.getItem('map');
+	
 	alert(load);
 }
 
@@ -133,8 +141,12 @@ function createShape(){
 		pointArray.push({x: pointArray[0].x, y: pointArray[0].y});
 		shapeArray.push(pointArray);
 		
-		shapeArray[shapeArray.length - 1].offsetX = 0;
-		shapeArray[shapeArray.length - 1].offsetY = 0;
+		shapeArray[shapeArray.length - 1][0].offsetX = 0;
+		shapeArray[shapeArray.length - 1][0].offsetY = 0;
+		/*
+		shapeArray[shapeArray.length - 1][0].mapWidth = mapWidth;
+		shapeArray[shapeArray.length - 1][0].mapHeight = mapHeight;
+		*/
 		
 		addShapeToStage(); // beta ----------------------------------------------------------------------
 		

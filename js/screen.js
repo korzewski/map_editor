@@ -43,19 +43,18 @@ function setScreenPosition(stageX, stageY){
 	}
 }
 
-// zoom
-var ZOOM = 1.0;
+var ZOOM = 0.85;
 $(document).ready(function(){
 	$('#screen').mousewheel(function(event, delta){
 		ZOOM += delta*0.3;
 		if(ZOOM < 0.9){
-			$(this).zoomTo({targetsize: 0.75, duration:600});
-		} else if(ZOOM > 2.5){
-			$(this).zoomTo({targetsize: 3, duration:600});
-		} else{
-			console.log('zoom: ' + ZOOM);
-			$(this).zoomTo({targetsize: ZOOM, duration:600});
+			ZOOM = 0.85;
+			//$(this).zoomTo({targetsize: ZOOM, duration:600});
+		} else if(ZOOM > 1.8){
+			ZOOM = 2;
+			//$(this).zoomTo({targetsize: ZOOM, duration:600});
 		}
+		$(this).zoomTo({targetsize: ZOOM, duration:600});
+		console.log('zoom: ' + ZOOM);
 	});
-	
 });

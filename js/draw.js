@@ -68,8 +68,8 @@ function moveShape(stageX, stageY){
 	if(SHAPE_IS_MOVE){		
 		offsetX = stageX - startX;
 		offsetY = stageY - startY;
-		shapeOnStage[actualShapeID].x = shapeArray[actualShapeID].offsetX + offsetX;
-		shapeOnStage[actualShapeID].y = shapeArray[actualShapeID].offsetY + offsetY;
+		shapeOnStage[actualShapeID].x = shapeArray[actualShapeID][0].offsetX + offsetX;
+		shapeOnStage[actualShapeID].y = shapeArray[actualShapeID][0].offsetY + offsetY;
 		
 		reDrawShapes();
 	}
@@ -79,8 +79,8 @@ function stopMoveShape(){
 	if(MODE == SELECT && SHAPE_IS_MOVE){
 		SHAPE_IS_MOVE = false;
 		
-		shapeArray[actualShapeID].offsetX += offsetX;
-		shapeArray[actualShapeID].offsetY += offsetY;
+		shapeArray[actualShapeID][0].offsetX += offsetX;
+		shapeArray[actualShapeID][0].offsetY += offsetY;
 		
 		unsetActiveShape();
 	}
