@@ -38,7 +38,7 @@ document.onkeydown = function(e){
 	}
 	if(e.keyCode == 83){
 		// 's'
-		setMenuOption(SELECT);
+		setMenuOption(MOVE);
 	}
 	if(e.keyCode == 68){
 		// 'd'

@@ -1,6 +1,6 @@
 
 // MODE TYPE
-var SELECT = 'select';
+var MOVE = 'move';
 var SHAPE = 'shape';
 var CIRCLE = 'circle';
 var RECTANGLE = 'rectangle';
@@ -8,7 +8,7 @@ var IMAGE = 'image';
 
 var MODE = SHAPE;
 
-
+var IS_SAVED = true;
 var CREATING_SHAPE = false;
 
 // ---------------------------------------------------------- MAP SETTINGS ---------------------------------------------------- //
@@ -65,8 +65,8 @@ $(document).ready(function(){
 			console.log('mode: rectangle');
 		} else if(MODE == IMAGE){
 			console.log('mode: image');
-		} else if(MODE == SELECT){
-			//console.log('mode: select');
+		} else if(MODE == MOVE){
+			//console.log('mode: MOVE');
 		} else{
 			console.log('mode: unknow');
 		}
@@ -87,12 +87,30 @@ $(document).ready(function(){
 			changeMode($(this).attr('id'));
 		}
 	});
+	$('#openClose').click(function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$('#left-side').css('display', 'none');
+			$('#container').css('width', '1000px');
+			$(this).text('+');
+		} else {
+			$(this).addClass('active');
+			$('#left-side').css('display', 'table-cell');
+			$('#container').css('width', '1200px');
+			$(this).text('-');
+		}
+		
+	});
 	// menu --------------------------------------------------------
 	
 	//createjs.Ticker.addListener(window);
 	//createjs.Ticker.setFPS(30);
-		
+	updateInfoData();
 });
+
+function updateInfoData(){
+	$('#info').find('.mapName span').text(mapName);
+}
 
 function setMenuOption(newMode){
 	if(MODE != newMode){
@@ -101,6 +119,16 @@ function setMenuOption(newMode){
 		changeMode(newMode);
 	}
 }
+
+function setSaved(){
+	IS_SAVED = true;
+	$('#save').removeClass('active');
+}
+function setUnSaved(){
+	IS_SAVED = false;
+	$('#save').addClass('active');
+}
+
 
 /*
 function tick(){
@@ -136,6 +164,7 @@ function save(){
 			data: {map_object: mapObject},
 			success: function(data){
 				console.log('success data: ' + data);
+				setSaved();
 			},
 			error: function(){
 				console.log('error');
@@ -157,8 +186,6 @@ function load(){
 			data: {map_object: mapObject},
 			success: function(loadedMap){
 				var loadedMapArray = JSON.parse(loadedMap);
-				//console.log(obj);
-				//console.log(shapeArray);
 				
 				// ---------------------------------------------------------- CLEAR WHOLE MAP ---------------------------------------------------- //
 				shapeArray = pointArray = shapeOnStage = new Array;
@@ -169,6 +196,8 @@ function load(){
 				console.log(shapeArray);
 				
 				addAnyShapeToStage();
+				setMenuOption(MOVE);
+				setSaved();
 			},
 			error: function(){
 				console.log('error');

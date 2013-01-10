@@ -37,6 +37,8 @@ function addShapeToStage(){
 	console.log('currentShape: ' + currentShape);
 	
 	stage.addChild(shapeOnStage[currentShape]);	
+	
+	setUnSaved();
 }
 
 function addAnyShapeToStage(){
@@ -48,7 +50,8 @@ function addAnyShapeToStage(){
 				shapeOnStage[j].graphics.lineTo(shapeArray[j][i].x, shapeArray[j][i].y);
 			}
 		}
-	
+		shapeOnStage[j].x = shapeArray[j][0].offsetX;
+		shapeOnStage[j].y = shapeArray[j][0].offsetY;
 		shapeOnStage[j].alpha = 0.3;
 		shapeOnStage[j].id = j;
 			
@@ -75,7 +78,7 @@ function unsetActiveShape(){
 }
 
 function startMoveShape(e){
-	if(MODE == SELECT){
+	if(MODE == MOVE){
 		SHAPE_IS_MOVE = true;
 		
 		actualShapeID = e.target.id;		
@@ -87,7 +90,9 @@ function startMoveShape(e){
 }
 
 function moveShape(stageX, stageY){
-	if(SHAPE_IS_MOVE){		
+	if(SHAPE_IS_MOVE){
+		setUnSaved();
+		
 		offsetX = stageX - startX;
 		offsetY = stageY - startY;
 		shapeOnStage[actualShapeID].x = shapeArray[actualShapeID][0].offsetX + offsetX;
@@ -98,11 +103,13 @@ function moveShape(stageX, stageY){
 }
 
 function stopMoveShape(){
-	if(MODE == SELECT && SHAPE_IS_MOVE){
+	if(MODE == MOVE && SHAPE_IS_MOVE){
 		SHAPE_IS_MOVE = false;
 		
-		shapeArray[actualShapeID][0].offsetX += offsetX;
-		shapeArray[actualShapeID][0].offsetY += offsetY;
+		if(offsetX || offsetY){
+			shapeArray[actualShapeID][0].offsetX += offsetX;
+			shapeArray[actualShapeID][0].offsetY += offsetY;
+		}
 		
 		unsetActiveShape();
 	}
