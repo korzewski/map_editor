@@ -91,6 +91,7 @@ $(document).ready(function(){
 	
 	//createjs.Ticker.addListener(window);
 	//createjs.Ticker.setFPS(30);
+		
 });
 
 function setMenuOption(newMode){
@@ -116,16 +117,30 @@ function changeMode(newMode){
 	pointArray = new Array();
 	reDrawShapes();
 }
-
+var mapName = 'map001';
 function save(){
 	if(shapeArray.length > 0){
+		shapeArray[0][0].mapName = mapName;
 		shapeArray[0][0].mapWidth = mapWidth;
 		shapeArray[0][0].mapHeight = mapHeight;
+	
+		var map = JSON.stringify(shapeArray);
+		var mapObject = {
+			mapData: map,
+			action: 'save'
+		};
 		
-		var json = JSON.stringify(shapeArray);
-		localStorage.setItem('map', json);
-		
-		console.log('json: ' + json);
+		$.ajax({
+			url: 'php/map.php',
+			type: 'post',
+			data: {map_object: mapObject},
+			success: function(data){
+				console.log('success data: ' + data);
+			},
+			error: function(){
+				console.log('error');
+			}
+		});
 	}
 }
 function load(){
