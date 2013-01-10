@@ -39,6 +39,28 @@ function addShapeToStage(){
 	stage.addChild(shapeOnStage[currentShape]);	
 }
 
+function addAnyShapeToStage(){
+	for(var j = 0; j < shapeArray.length; j++){
+		shapeOnStage[j] = new createjs.Shape();
+		for(var i = 0; i < shapeArray[j].length; i++){
+			if(i == 0) shapeOnStage[j].graphics.beginFill('rgba(0, 0, 0, 0.1)').beginStroke('#000').moveTo(shapeArray[j][0].x, shapeArray[j][0].y);
+			else{
+				shapeOnStage[j].graphics.lineTo(shapeArray[j][i].x, shapeArray[j][i].y);
+			}
+		}
+	
+		shapeOnStage[j].alpha = 0.3;
+		shapeOnStage[j].id = j;
+			
+		// action
+		shapeOnStage[j].onPress = startMoveShape;
+		console.log('j: ' + j);
+		
+		stage.addChild(shapeOnStage[j]);
+	}
+	reDrawShapes();
+}
+
 var startX, startY, offsetX, offsetY;
 var SHAPE_IS_MOVE = false;
 var actualShapeID;

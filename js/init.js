@@ -144,9 +144,36 @@ function save(){
 	}
 }
 function load(){
-	var load = localStorage.getItem('map');
+	//var load = localStorage.getItem('map');
+	//alert(load);
+	var mapObject = {
+		mapName: 'map001',
+		action: 'load'
+	};
 	
-	alert(load);
+	$.ajax({
+			url: 'php/map.php',
+			type: 'post',
+			data: {map_object: mapObject},
+			success: function(loadedMap){
+				var loadedMapArray = JSON.parse(loadedMap);
+				//console.log(obj);
+				//console.log(shapeArray);
+				
+				// ---------------------------------------------------------- CLEAR WHOLE MAP ---------------------------------------------------- //
+				shapeArray = pointArray = shapeOnStage = new Array;
+				stage.removeAllChildren();
+				// ---------------------------------------------------------- CLEAR WHOLE MAP ---------------------------------------------------- //
+				
+				shapeArray = loadedMapArray;
+				console.log(shapeArray);
+				
+				addAnyShapeToStage();
+			},
+			error: function(){
+				console.log('error');
+			}
+		});
 }
 
 function createShape(){

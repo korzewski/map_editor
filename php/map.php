@@ -3,8 +3,8 @@
 	$map = json_decode(json_encode($map));
 
 	if($map->action == 'load'){
-		//$content = file_get_contents($file_url);
-		echo 'load map';
+		$loaded_map = file_get_contents($map->mapName.'.map');
+		echo $loaded_map;
 	} else if($map->action == 'save'){
 		$mapData = json_decode($map->mapData);
 		$file_url = $mapData[0][0]->mapName.'.map';
