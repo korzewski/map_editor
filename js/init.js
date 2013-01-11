@@ -21,6 +21,8 @@ var stage;
 var pointArray = new Array;
 var shapeArray = new Array;
 
+var mapName = 'map001';
+
 $(document).ready(function(){
 	screenWidth = $('#screen').width();
 	screenHeight = $('#screen').height();
@@ -75,10 +77,10 @@ $(document).ready(function(){
 	
 	// menu --------------------------------------------------------
 	$('#save').click(function(){
-		save();
+		save(mapName);
 	});
 	$('#load').click(function(){
-		load();
+		load(mapName);
 	});
 	$('.option').click(function(){
 		if(!$(this).hasClass('active')){
@@ -92,19 +94,17 @@ $(document).ready(function(){
 			$(this).removeClass('active');
 			$('#left-side').css('display', 'none');
 			$('#container').css('width', '1000px');
-			$(this).text('+');
+			$(this).text('+').css('line-height', '20px');
 		} else {
 			$(this).addClass('active');
 			$('#left-side').css('display', 'table-cell');
 			$('#container').css('width', '1200px');
-			$(this).text('-');
+			$(this).text('-').css('line-height', '18px');
 		}
 		
 	});
 	// menu --------------------------------------------------------
 	
-	//createjs.Ticker.addListener(window);
-	//createjs.Ticker.setFPS(30);
 	updateInfoData();
 });
 
@@ -129,14 +129,6 @@ function setUnSaved(){
 	$('#save').addClass('active');
 }
 
-
-/*
-function tick(){
-	console.log('tick, ');
-	stage.update();
-}
-*/
-
 function changeMode(newMode){
 	MODE = newMode;
 	CREATING_SHAPE = false;
@@ -145,8 +137,8 @@ function changeMode(newMode){
 	pointArray = new Array();
 	reDrawShapes();
 }
-var mapName = 'map001';
-function save(){
+
+function save(mapName){
 	if(shapeArray.length > 0){
 		shapeArray[0][0].mapName = mapName;
 		shapeArray[0][0].mapWidth = mapWidth;
@@ -172,11 +164,9 @@ function save(){
 		});
 	}
 }
-function load(){
-	//var load = localStorage.getItem('map');
-	//alert(load);
+function load(mapName){
 	var mapObject = {
-		mapName: 'map001',
+		mapName: mapName,
 		action: 'load'
 	};
 	
@@ -211,18 +201,12 @@ function createShape(){
 	if(pointArray.length > 2){
 		pointArray.push({x: pointArray[0].x, y: pointArray[0].y});
 		shapeArray.push(pointArray);
+		pointArray = new Array;
 		
 		shapeArray[shapeArray.length - 1][0].offsetX = 0;
 		shapeArray[shapeArray.length - 1][0].offsetY = 0;
-		/*
-		shapeArray[shapeArray.length - 1][0].mapWidth = mapWidth;
-		shapeArray[shapeArray.length - 1][0].mapHeight = mapHeight;
-		*/
 		
-		addShapeToStage(); // beta ----------------------------------------------------------------------
-		
-		pointArray = new Array; // clear pointArray[]
-		
+		addShapeToStage();
 	} else {
 		alert('you need minimum 3 points to create a shape');
 		pointArray = new Array; // clear pointArray[]

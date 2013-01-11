@@ -65,11 +65,11 @@ cursor: pointer;
 }
 #info div:hover{
 background: #f00;
+color: #fff;
 }
 #info div span{
 float: right;
 word-break: break-all;
-color: #333;
 }
 #right-side{
 width: 1000px;
